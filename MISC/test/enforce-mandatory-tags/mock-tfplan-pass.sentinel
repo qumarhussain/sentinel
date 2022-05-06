@@ -1,0 +1,351 @@
+terraform_version = "1.1.8"
+
+planned_values = {
+	"outputs": {},
+	"resources": {
+		"module.S3.aws_s3_bucket.bucket": {
+			"address":        "module.S3.aws_s3_bucket.bucket",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "module.S3",
+			"name":           "bucket",
+			"provider_name":  "registry.terraform.io/hashicorp/aws",
+			"tainted":        false,
+			"type":           "aws_s3_bucket",
+			"values": {
+				"acl":           "public-read",
+				"bucket":        "s3-qumarhussain-main",
+				"bucket_prefix": null,
+				"force_destroy": false,
+				"tags": {
+					"Environment": "TEST",
+					"Name":        "ProjectC",
+				},
+				"tags_all": {
+					"Environment": "TEST",
+					"Name":        "ProjectC",
+				},
+			},
+		},
+	},
+}
+
+variables = {
+	"acl": {
+		"name":  "acl",
+		"value": "public-read",
+	},
+	"bucketName": {
+		"name":  "bucketName",
+		"value": "s3-qumarhussain-main",
+	},
+	"env": {
+		"name":  "env",
+		"value": "TEST",
+	},
+	"projectName": {
+		"name":  "projectName",
+		"value": "ProjectC",
+	},
+}
+
+resource_changes = {
+	"module.S3.aws_s3_bucket.bucket": {
+		"address": "module.S3.aws_s3_bucket.bucket",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"acl":           "public-read",
+				"bucket":        "s3-qumarhussain-main",
+				"bucket_prefix": null,
+				"force_destroy": false,
+				"tags": {
+					"Environment": "TEST",
+					"Name":        "ProjectC",
+				},
+				"tags_all": {
+					"Environment": "TEST",
+					"Name":        "ProjectC",
+				},
+			},
+			"after_unknown": {
+				"acceleration_status": true,
+				"arn":                                  true,
+				"bucket_domain_name":                   true,
+				"bucket_regional_domain_name":          true,
+				"cors_rule":                            true,
+				"grant":                                true,
+				"hosted_zone_id":                       true,
+				"id":                                   true,
+				"lifecycle_rule":                       true,
+				"logging":                              true,
+				"object_lock_configuration":            true,
+				"object_lock_enabled":                  true,
+				"policy":                               true,
+				"region":                               true,
+				"replication_configuration":            true,
+				"request_payer":                        true,
+				"server_side_encryption_configuration": true,
+				"tags":             {},
+				"tags_all":         {},
+				"versioning":       true,
+				"website":          true,
+				"website_domain":   true,
+				"website_endpoint": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "module.S3",
+		"name":           "bucket",
+		"provider_name":  "registry.terraform.io/hashicorp/aws",
+		"type":           "aws_s3_bucket",
+	},
+}
+
+output_changes = {}
+
+raw = {
+	"configuration": {
+		"root_module": {
+			"module_calls": {
+				"S3": {
+					"expressions": {
+						"acl": {
+							"references": [
+								"var.acl",
+							],
+						},
+						"bucketName": {
+							"references": [
+								"var.bucketName",
+							],
+						},
+						"env": {
+							"references": [
+								"var.env",
+							],
+						},
+						"projectName": {
+							"references": [
+								"var.projectName",
+							],
+						},
+					},
+					"module": {
+						"outputs": {
+							"s3_bucket_name": {
+								"description": "S3 Bucket Name",
+								"expression": {
+									"references": [
+										"aws_s3_bucket.bucket.arn",
+										"aws_s3_bucket.bucket",
+									],
+								},
+								"sensitive": true,
+							},
+						},
+						"resources": [
+							{
+								"address": "aws_s3_bucket.bucket",
+								"expressions": {
+									"acl": {
+										"references": [
+											"var.acl",
+										],
+									},
+									"bucket": {
+										"references": [
+											"var.bucketName",
+										],
+									},
+									"tags": {
+										"references": [
+											"var.projectName",
+											"var.env",
+										],
+									},
+								},
+								"mode":                "managed",
+								"name":                "bucket",
+								"provider_config_key": "S3:aws",
+								"schema_version":      0,
+								"type":                "aws_s3_bucket",
+							},
+						],
+						"variables": {
+							"acl": {
+								"default":     "private",
+								"description": "Access control list (ACL) for S3",
+							},
+							"bucketName": {
+								"default":     "s3-qumarhussain-test",
+								"description": "S3 Bucket Name",
+							},
+							"env": {
+								"default":     "DEV",
+								"description": "AWS Enviorment",
+							},
+							"projectName": {
+								"default":     "Project-TEST",
+								"description": "Name of the project this resource is associated with",
+							},
+						},
+					},
+					"source": "git::https://github.com/qumarhussain/terraform.git//S3?ref=AWSS3Bucket",
+				},
+			},
+			"variables": {
+				"acl": {
+					"description": "Access control list (ACL) for S3",
+				},
+				"bucketName": {
+					"description": "S3 Bucket Name",
+				},
+				"env": {
+					"description": "AWS Enviorment",
+				},
+				"projectName": {
+					"description": "Name of the project this resource is associated with",
+				},
+			},
+		},
+	},
+	"format_version": "1.0",
+	"planned_values": {
+		"root_module": {
+			"child_modules": [
+				{
+					"address": "module.S3",
+					"resources": [
+						{
+							"address":        "module.S3.aws_s3_bucket.bucket",
+							"mode":           "managed",
+							"name":           "bucket",
+							"provider_name":  "registry.terraform.io/hashicorp/aws",
+							"schema_version": 0,
+							"sensitive_values": {
+								"cors_rule":                            [],
+								"grant":                                [],
+								"lifecycle_rule":                       [],
+								"logging":                              [],
+								"object_lock_configuration":            [],
+								"replication_configuration":            [],
+								"server_side_encryption_configuration": [],
+								"tags":       {},
+								"tags_all":   {},
+								"versioning": [],
+								"website":    [],
+							},
+							"type": "aws_s3_bucket",
+							"values": {
+								"acl":           "public-read",
+								"bucket":        "s3-qumarhussain-main",
+								"bucket_prefix": null,
+								"force_destroy": false,
+								"tags": {
+									"Environment": "TEST",
+									"Name":        "ProjectC",
+								},
+								"tags_all": {
+									"Environment": "TEST",
+									"Name":        "ProjectC",
+								},
+							},
+						},
+					],
+				},
+			],
+		},
+	},
+	"resource_changes": [
+		{
+			"address": "module.S3.aws_s3_bucket.bucket",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"acl":           "public-read",
+					"bucket":        "s3-qumarhussain-main",
+					"bucket_prefix": null,
+					"force_destroy": false,
+					"tags": {
+						"Environment": "TEST",
+						"Name":        "ProjectC",
+					},
+					"tags_all": {
+						"Environment": "TEST",
+						"Name":        "ProjectC",
+					},
+				},
+				"after_sensitive": {
+					"cors_rule":                            [],
+					"grant":                                [],
+					"lifecycle_rule":                       [],
+					"logging":                              [],
+					"object_lock_configuration":            [],
+					"replication_configuration":            [],
+					"server_side_encryption_configuration": [],
+					"tags":       {},
+					"tags_all":   {},
+					"versioning": [],
+					"website":    [],
+				},
+				"after_unknown": {
+					"acceleration_status": true,
+					"arn":                                  true,
+					"bucket_domain_name":                   true,
+					"bucket_regional_domain_name":          true,
+					"cors_rule":                            true,
+					"grant":                                true,
+					"hosted_zone_id":                       true,
+					"id":                                   true,
+					"lifecycle_rule":                       true,
+					"logging":                              true,
+					"object_lock_configuration":            true,
+					"object_lock_enabled":                  true,
+					"policy":                               true,
+					"region":                               true,
+					"replication_configuration":            true,
+					"request_payer":                        true,
+					"server_side_encryption_configuration": true,
+					"tags":             {},
+					"tags_all":         {},
+					"versioning":       true,
+					"website":          true,
+					"website_domain":   true,
+					"website_endpoint": true,
+				},
+				"before":           null,
+				"before_sensitive": false,
+			},
+			"mode":           "managed",
+			"module_address": "module.S3",
+			"name":           "bucket",
+			"provider_name":  "registry.terraform.io/hashicorp/aws",
+			"type":           "aws_s3_bucket",
+		},
+	],
+	"terraform_version": "1.1.8",
+	"variables": {
+		"acl": {
+			"value": "public-read",
+		},
+		"bucketName": {
+			"value": "s3-qumarhussain-main",
+		},
+		"env": {
+			"value": "TEST",
+		},
+		"projectName": {
+			"value": "ProjectC",
+		},
+	},
+}

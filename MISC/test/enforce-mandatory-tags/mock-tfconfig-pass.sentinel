@@ -1,0 +1,148 @@
+import "strings"
+
+providers = {}
+
+resources = {
+	"module.S3.aws_s3_bucket.bucket": {
+		"address": "module.S3.aws_s3_bucket.bucket",
+		"config": {
+			"acl": {
+				"references": [
+					"var.acl",
+				],
+			},
+			"bucket": {
+				"references": [
+					"var.bucketName",
+				],
+			},
+			"tags": {
+				"references": [
+					"var.projectName",
+					"var.env",
+				],
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "module.S3",
+		"name":                "bucket",
+		"provider_config_key": "module.S3:aws",
+		"provisioners":        [],
+		"type":                "aws_s3_bucket",
+	},
+}
+
+provisioners = {}
+
+variables = {
+	"acl": {
+		"default":        null,
+		"description":    "Access control list (ACL) for S3",
+		"module_address": "",
+		"name":           "acl",
+	},
+	"bucketName": {
+		"default":        null,
+		"description":    "S3 Bucket Name",
+		"module_address": "",
+		"name":           "bucketName",
+	},
+	"env": {
+		"default":        null,
+		"description":    "AWS Enviorment",
+		"module_address": "",
+		"name":           "env",
+	},
+	"module.S3:acl": {
+		"default":        "private",
+		"description":    "Access control list (ACL) for S3",
+		"module_address": "module.S3",
+		"name":           "acl",
+	},
+	"module.S3:bucketName": {
+		"default":        "s3-qumarhussain-test",
+		"description":    "S3 Bucket Name",
+		"module_address": "module.S3",
+		"name":           "bucketName",
+	},
+	"module.S3:env": {
+		"default":        "DEV",
+		"description":    "AWS Enviorment",
+		"module_address": "module.S3",
+		"name":           "env",
+	},
+	"module.S3:projectName": {
+		"default":        "Project-TEST",
+		"description":    "Name of the project this resource is associated with",
+		"module_address": "module.S3",
+		"name":           "projectName",
+	},
+	"projectName": {
+		"default":        null,
+		"description":    "Name of the project this resource is associated with",
+		"module_address": "",
+		"name":           "projectName",
+	},
+}
+
+outputs = {
+	"module.S3:s3_bucket_name": {
+		"depends_on":     [],
+		"description":    "S3 Bucket Name",
+		"module_address": "module.S3",
+		"name":           "s3_bucket_name",
+		"sensitive":      true,
+		"value": {
+			"references": [
+				"aws_s3_bucket.bucket.arn",
+				"aws_s3_bucket.bucket",
+			],
+		},
+	},
+}
+
+module_calls = {
+	"S3": {
+		"config": {
+			"acl": {
+				"references": [
+					"var.acl",
+				],
+			},
+			"bucketName": {
+				"references": [
+					"var.bucketName",
+				],
+			},
+			"env": {
+				"references": [
+					"var.env",
+				],
+			},
+			"projectName": {
+				"references": [
+					"var.projectName",
+				],
+			},
+		},
+		"count":              {},
+		"depends_on":         [],
+		"for_each":           {},
+		"module_address":     "",
+		"name":               "S3",
+		"source":             "git::https://github.com/qumarhussain/terraform.git//S3?ref=AWSS3Bucket",
+		"version_constraint": "",
+	},
+}
+
+strip_index = func(addr) {
+	s = strings.split(addr, ".")
+	for s as i, v {
+		s[i] = strings.split(v, "[")[0]
+	}
+
+	return strings.join(s, ".")
+}
