@@ -1,0 +1,44 @@
+# This policy uses the Sentinel tfplan/v2 import to require that
+# all RDS instances have a limit on engines size from an allowed list
+
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfplan-functions" as plan
+
+#print
+print("******* Check Backup Retention Period *******")
+
+# Get all RDS instances
+allRDSInstances = plan.find_resources("aws_db_instance")
+
+# variables to store violators
+violators = {}
+messages = {}
+
+# find backup retention period for all DB instances and check
+for allRDSInstances as key, rdsInstance {
+brp = plan.evaluate_attribute(rdsInstance,"backup_retention_period")
+  print("backup_retention_period: ",brp)
+  if brp is not null and (brp < 1 or brp > 35) {
+          message = "DB instance: "+plan.to_string(rdsInstance.address) + " has backup_retention_period: "+ plan.to_string(brp) + " that is not allowed!, valid value is in range: [1 - 35]"
+          violators[key] = rdsInstance
+          messages[key] = message
+          print(message)
+  }
+  if brp is null {
+          message = "DB instance: "+plan.to_string(rdsInstance.address) + " has no backup_retention_period!!! it's not allowed!, please add backup_retention_period and value in range: [1 - 35]"
+          violators[key] = rdsInstance
+          messages[key] = message
+          print(message)
+  }  
+
+}
+
+# Filter to RDS instances with violations
+violation = length(violators)
+print("violation count: ",violation)
+
+# Main rule
+main = rule {
+  violation is 0
+}
